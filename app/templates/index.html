@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Добавление на карту кластеризатора меток</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href="https://yandex.st/bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/MyStyle.css')}}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://api-maps.yandex.ru/2.1.48/?lang=ru_RU"></script>  
+  <script src="{{url_for('static', filename='js/lib/ymaps-pie-chart-clusterer.js')}}"></script>
+  <script src="{{url_for('static', filename='js/help_functions.js')}}"></script>
+  <script src="{{url_for('static', filename='js/clusterer_create.js')}}"></script>
+  <script src="{{url_for('static', filename='js/list_box_layout.js')}}"></script>
+  <script src="{{url_for('static', filename='js/YMapReady.js')}}"></script>
+  <script>
+  	'use strict'
+  	var ege_data = {{ege_data|safe}};
+  </script>
+</head>
+<body>
+	<div id="map"></div>
+</body>
+</html>
