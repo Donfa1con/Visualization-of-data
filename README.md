@@ -19,3 +19,5 @@
                   <br>**help_functions.js** - функции для clusterer_create.js. Присваивает каждой группе школ свой цвет(от зеленого до красного).</br>
                   **YMapReady.js** - создание карты 
 * /app/static/js/lib/ <br>**ymaps-pie-chart-clusterer.js** - библиотека для PieChartClusterer от https://github.com/yandex/ymaps-pie-chart-clusterer</br>
+
+Ссылка на Heroku: https://visualization-of-data.herokuapp.com
