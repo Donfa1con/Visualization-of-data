@@ -63,8 +63,8 @@ def create_clusters(exams_score_by_years):
             school.update(extra_params)        
 
 def get_table_data_about_ege_by_years():
-    school_with_exams_2015 = read_csv_file('static/table_csv/data-20160301-structure-20160301.csv')
-    school_with_exams_2016 = read_csv_file('static/table_csv/data-20161027-structure-20161027.csv')
+    school_with_exams_2015 = read_csv_file('data/table_csv/data-20160301-structure-20160301.csv')
+    school_with_exams_2016 = read_csv_file('data/table_csv/data-20161027-structure-20161027.csv')
     school_with_exams__by_years = { "2015" : school_with_exams_2015,
                                     "2016" : school_with_exams_2016
                                   }
