@@ -1,5 +1,5 @@
 'use strict'
-function create_clasterer(myMap, years) {
+function create_years_clasterer(myMap, years) {
     return ymaps.modules.require(['PieChartClusterer'], function (PieChartClusterer) {
 
             var clusterer = new PieChartClusterer({
@@ -36,7 +36,7 @@ function create_clasterer(myMap, years) {
          */
             var getPointOptions = function (index) {
                 return { 
-                    preset: setMarkerColor(index, ege_data[years])
+                    preset: setMarkerColor_for_year(index, ege_data[years])
                 };
             };
         
@@ -48,13 +48,10 @@ function create_clasterer(myMap, years) {
      * Данные передаются вторым параметром в конструктор метки, опции - третьим.
      * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark.xml#constructor-summary
      */
-            for(var index_point = 0, count_geoObject = 0; index_point < points.length; index_point++) {
-                if (ege_data[years][index_point]['mid_score'] != '-') {
-                    geoObjects[count_geoObject] = new ymaps.Placemark(points[index_point], 
-                                                                      getPointData(index_point), 
-                                                                      getPointOptions(index_point));
-                    count_geoObject +=1;
-                }
+            for(var index_point = 0; index_point < points.length; index_point++) {
+                    geoObjects[index_point] = new ymaps.Placemark(points[index_point], 
+                                                                  getPointData(index_point), 
+                                                                  getPointOptions(index_point));
             }
 
     /**
@@ -72,14 +69,6 @@ function create_clasterer(myMap, years) {
      */
             clusterer.add(geoObjects);
             myMap.geoObjects.add(clusterer);
-
-    /**
-     * Спозиционируем карту так, чтобы на ней были видны все объекты.
-     */
-
-            myMap.setBounds(clusterer.getBounds(), {
-                checkZoomRange: true
-            });
     });
 
 }

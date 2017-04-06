@@ -1,15 +1,15 @@
 'use strict'
-function create_list_box_layout (myMap) {
+function button_to_change_trend (myMap) {
 
         // Создадим собственный макет выпадающего списка.
         var ListBoxLayout = ymaps.templateLayoutFactory.createClass(
-            "<button id='my-listbox-header' class='btn btn-success dropdown-toggle' data-toggle='dropdown'>" +
+            "<button id='button_to_change_trend_header' class='btn btn-success dropdown-toggle' data-toggle='dropdown'>" +
                 "{{data.title}} <span class='caret'></span>" +
             "</button>" +
             // Этот элемент будет служить контейнером для элементов списка.
             // В зависимости от того, свернут или развернут список, этот контейнер будет
             // скрываться или показываться вместе с дочерними элементами.
-            "<ul id='my-listbox'" +
+            "<ul id='button_to_change_trend'" +
                 " class='dropdown-menu' role='menu' aria-labelledby='dropdownMenu'" +
                 " style='display: {% if state.expanded %}block{% else %}none{% endif %};'></ul>", {
 
@@ -18,7 +18,7 @@ function create_list_box_layout (myMap) {
                 // дополнительных действий.
                 ListBoxLayout.superclass.build.call(this);
 
-                this.childContainerElement = $('#my-listbox').get(0);
+                this.childContainerElement = $('#button_to_change_trend').get(0);
                 // Генерируем специальное событие, оповещающее элемент управления
                 // о смене контейнера дочерних элементов.
                 this.events.fire('childcontainerchange', {
@@ -55,24 +55,20 @@ function create_list_box_layout (myMap) {
         ),
 
         // Создадим 2 пункта выпадающего списка
-        listBoxItems = [
-            new ymaps.control.ListBoxItem({
-                data: {
-                    content: '2015',
-                }
-            }),
-            new ymaps.control.ListBoxItem({
-                data: {
-                    content: '2016',
-                }
-            })
-        ],
+        listBoxItems = [];
+        var school_subject = ['Количество участников', 'Средний балл', 'Справляемость участников'];
+        for(var index = 0; index < school_subject.length; ++index ) {
+            listBoxItems.push(new ymaps.control.ListBoxItem({
+                                    data: {
+                                            content: school_subject[index],
+                                            }
+                            }));
+        }
 
-        // Теперь создадим список, содержащий 2 пунтка.
-        listBox = new ymaps.control.ListBox({
+        var listBox = new ymaps.control.ListBox({
                 items: listBoxItems,
                 data: {
-                    title: 'Выберите год'
+                    title: 'Выберите тренд'
                 },
                 options: {
                     // С помощью опций можно задать как макет непосредственно для списка,
@@ -92,10 +88,16 @@ function create_list_box_layout (myMap) {
             // Клик на заголовке выпадающего списка обрабатывать не надо.
             
             if (item != listBox) {
-                myMap.geoObjects.removeAll();
-                create_clasterer(myMap, item.data.get('content'));
+                var school_subject = document.getElementById('button_to_change_school_subject_header').innerHTML.split(" ")[0];
+                listBox.data.set('title', item.data.get('content'));               
+                if (school_subject != 'Выберите') {
+                    myMap.geoObjects.removeAll();
+
+
+                    console.log(school_subject, item.data.get('content').split(" ")[0]);
+                    create_trends_clasterer(myMap, school_subject, item.data.get('content').split(" ")[0]);
+                }
             }
         });
-
     myMap.controls.add(listBox, {float: 'left'});
 }

@@ -2,7 +2,17 @@ html, body, #map {
     width: 100%; height: 100%; padding: 0; margin: 0;
 }
 
-#my-listbox {
+#button_to_change_years {
+    top: auto;
+    left: auto;
+}
+
+#button_to_change_school_subject {
+    top: auto;
+    left: auto;
+}
+
+#button_to_change_trend {
     top: auto;
     left: auto;
 }
