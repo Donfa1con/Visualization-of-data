@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "data_name": "Russian language",
+    "name": "Русский язык"
+  },
+  {
+    "id": 2,
+    "data_name": "Mathematics ",
+    "name": "Математика"
+  },
+  {
+    "id": 3,
+    "data_name": "Mathematics profil",
+    "name": "Математика профильная"
+  },
+  {
+    "id": 4,
+    "data_name": "Mathematics base",
+    "name": "Математика базовая"
+  },
+  {
+    "id": 5,
+    "data_name": "Physics ",
+    "name": "Физика"
+  },
+  {
+    "id": 6,
+    "data_name": "Chemistry ",
+    "name": "Химия"
+  },
+  {
+    "id": 7,
+    "data_name": "Computer science ",
+    "name": "Информатика"
+  },
+  {
+    "id": 8,
+    "data_name": "Biology",
+    "name": "Биология"
+  },
+  {
+    "id": 9,
+    "data_name": "History",
+    "name": "История"
+  },
+  {
+    "id": 10,
+    "data_name": "Geography",
+    "name": "География"
+  },
+  {
+    "id": 11,
+    "data_name": "English ",
+    "name": "Ангийский"
+  },
+  {
+    "id": 12,
+    "data_name": "Social Studies",
+    "name": "Обществознание"
+  },
+  {
+    "id": 13,
+    "data_name": "Literature",
+    "name": "Литература"
+  }
+]
