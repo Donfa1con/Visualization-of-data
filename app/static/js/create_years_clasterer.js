@@ -1,5 +1,5 @@
 'use strict'
-function create_years_clasterer(myMap, years) {
+function create_years_clasterer(myMap, year, school_subject_trend) {
     return ymaps.modules.require(['PieChartClusterer'], function (PieChartClusterer) {
 
             var clusterer = new PieChartClusterer({
@@ -11,20 +11,16 @@ function create_years_clasterer(myMap, years) {
                 clusterHideIconOnBalloonOpen: false,
                 geoObjectHideIconOnBalloonOpen: false
             });
-        /**
-         * Функция возвращает объект, содержащий данные метки.
-         * Поле данных clusterCaption будет отображено в списке геообъектов в балуне кластера.
-         * Поле balloonContentBody - источник данных для контента балуна.
-         * Оба поля поддерживают HTML-разметку.
-         * Список полей данных, которые используют стандартные макеты содержимого иконки метки
-         * и балуна геообъектов, можно посмотреть в документации.
-         * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/GeoObject.xml
-         */
+
+            var trend = document.getElementById('button_to_change_trend_header').innerHTML.split(" ", 2);
+
             var getPointData = function (index) {
                 return {
-                    balloonContentBody: ege_data[years][index]['Full name'] + 
-                                             '<strong><br> ' + 'Средний балл: ' +
-                            ege_data[years][index]['mid_score'] + '</br></strong>',
+                    balloonContentBody: ege_data[year][index]['Full name'] + 
+                                                '<strong><br> ' +  
+                                                    trend[0] + ' ' + trend[1] + ' : ' +
+                                                    ege_data[year][index][school_subject_trend] +
+                                                '</br></strong>',
 
                     clusterCaption: 'метка <strong>' + index + '</strong>',
                 };
@@ -36,22 +32,26 @@ function create_years_clasterer(myMap, years) {
          */
             var getPointOptions = function (index) {
                 return { 
-                    preset: setMarkerColor_for_year(index, ege_data[years])
+                    preset: setMarkerColor_for_year(index, ege_data[year], school_subject_trend)
                 };
             };
         
 
-            var points = getCoordinates(ege_data[years]);
+            var points = getCoordinates(ege_data[year]);
             var geoObjects = [];
 
     /**
      * Данные передаются вторым параметром в конструктор метки, опции - третьим.
      * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark.xml#constructor-summary
      */
-            for(var index_point = 0; index_point < points.length; index_point++) {
-                    geoObjects[index_point] = new ymaps.Placemark(points[index_point], 
+            for(var index_point = 0, count_geoObjects = 0; index_point < points.length; index_point++) {
+                var score = ege_data[year][index_point][school_subject_trend];
+                if (score != '-') {
+                    geoObjects[count_geoObjects] = new ymaps.Placemark(points[index_point], 
                                                                   getPointData(index_point), 
                                                                   getPointOptions(index_point));
+                    count_geoObjects++;
+                }
             }
 
     /**
@@ -60,7 +60,7 @@ function create_years_clasterer(myMap, years) {
             clusterer.options.set({
                 gridSize: 150,
                 clusterDisableClickZoom: true,
-                minClusterSize : 3
+                minClusterSize : 30
             });
 
     /**
@@ -70,5 +70,4 @@ function create_years_clasterer(myMap, years) {
             clusterer.add(geoObjects);
             myMap.geoObjects.add(clusterer);
     });
-
 }

@@ -10,10 +10,11 @@
   <script src="{{url_for('static', filename='js/lib/ymaps-pie-chart-clusterer.js')}}"></script>
   <script src="{{url_for('static', filename='js/help_functions.js')}}"></script>
   <script src="{{url_for('static', filename='js/create_years_clasterer.js')}}"></script>
-  <script src="{{url_for('static', filename='js/create_trends_clasterer.js')}}"></script>
+  <script src="{{url_for('static', filename='js/create_trends_markers.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_to_change_years.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_to_change_school_subject.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_to_change_trend.js')}}"></script>
+  <script src="{{url_for('static', filename='js/button_checkbox.js')}}"></script>
   <script src="{{url_for('static', filename='js/YMapReady.js')}}"></script>
   <script>
   	'use strict'
@@ -27,6 +28,7 @@
 
   	var ege_data = getJsonData("{{url_for('static', filename='Tables_data.json')}}");
   	var ege_trends = getJsonData("{{url_for('static', filename='School_trends.json')}}");
+    var STEALF = false;
     
   </script>
 </head>
