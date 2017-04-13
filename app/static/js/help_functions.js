@@ -37,25 +37,25 @@ function setMarkerColor_for_year(index, ege_data_current_year, school_subject_tr
 };
 
 function setMarkerColor_for_trends(index, school_subject_trend) {
-    if (ege_trends[index][school_subject_trend] > 0) {
+	var trend = ege_trends[index][school_subject_trend];
+    if (trend > 0) {
         return 'islands#darkGreenCircleDotIcon';
-    } else if (ege_trends[index][school_subject_trend] < 0) {
+    } else if (trend < 0) {
         return 'islands#redCircleDotIcon';
     } else {
         return 'islands#grayCircleDotIcon';
     }
 };
 
-
 function getSchoolSubjectTrend(school_subject, trend) {
     var school_subject_and_trands = ['Русский','Математика','Физика','Химия',
                                     'Биология','География','Информатика','Литература',
-                                    'История','Обществознание','Английский','Все',
-                                    'Количество','Средний', 'Справляемость'];
+                                    'История','Обществознание','Английский','Обязательные',
+                                    'Все','Количество','Средний', 'Справляемость'];
     var translator_school_subject_and_trands = ['Russianlanguage','Mathematicsprofil',
                                             'Physics','Chemistry','Biology','Geography',
                                             'Computerscience','Literature','History',
-                                            'SocialStudies','English','',
+                                            'SocialStudies','English','Required','',
                                             'amount', 'GPA','spravlyaemost'];
     var similar_dict = {};
 

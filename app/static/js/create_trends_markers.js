@@ -1,5 +1,5 @@
 'use strict'
-function create_trends_markers(myMap, school_subject_trend, stealth) {
+function create_trends_markers(myMap, school_subject_trend) {
 
     var getPointData = function (index) {
         return {
@@ -22,7 +22,7 @@ function create_trends_markers(myMap, school_subject_trend, stealth) {
 
     for(var index_point = 0; index_point < points.length; index_point++) {
         var score = ege_trends[index_point][school_subject_trend];
-        if (STEALF){
+        if (SHOW_ELEMENTS){
             if (score != '-') {
                 myMap.geoObjects.add( new ymaps.Placemark(points[index_point], 
                                                     getPointData(index_point), 

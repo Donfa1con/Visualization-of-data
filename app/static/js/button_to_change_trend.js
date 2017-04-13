@@ -50,7 +50,7 @@ function create_button_to_change_trend (myMap) {
         var listBox = new ymaps.control.ListBox({
                 items: listBoxItems,
                 data: {
-                    title: 'Выберите тренд'
+                    title: 'Средний балл'
                 },
                 options: {
 

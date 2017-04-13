@@ -51,7 +51,7 @@ function create_button_to_change_years (myMap) {
         var listBox = new ymaps.control.ListBox({
                 items: listBoxItems,
                 data: {
-                    title: 'Выберите год'
+                    title: '2015-2016'
                 },
                 options: {
                     layout: ListBoxLayout,

@@ -84,13 +84,41 @@ def update_schools_data_to_mid_params(schools_with_exams_by_years):
             if mid_score == '-':
                 schools_zero.add(school["Code"])
             extra_params = {
-                "amount" : mid_score,
-                "GPA" : mid_member,
+                "amount" : mid_member,
+                "GPA" : mid_score,
                 "spravlyaemost" : mid_success
             }
             school.update(extra_params)
     remove_schools_with_mid_score_is_zero(schools_with_exams_by_years, schools_zero)
 
+
+def get_params_of_required_school_subject(school):
+    requiredamount = 0
+    requiredGPA = 0
+    requiredspravlyaemost = 0
+    count_required_subject = 0
+    for key in school.keys():
+        if ('Mathem' in key or 'Russian' in key) and school[key] and school[key] != '-':
+            if 'amount' in key:
+                requiredamount += get_number(school[key])
+                count_required_subject += 1
+            if 'GPA' in key:
+                requiredGPA += get_number(school[key])
+            if 'spravlyaemost' in key:
+                requiredspravlyaemost += get_number(school[key])
+    extra_params = {
+                "Requiredamount" : round(requiredamount / count_required_subject, 2),
+                "RequiredGPA" : round(requiredGPA / count_required_subject, 2),
+                "Requiredspravlyaemost" : round(requiredspravlyaemost / count_required_subject, 2)
+            }
+    return extra_params
+                
+
+def update_schools_data_to_params_of_required_school_subject(schools_with_exams_by_years):
+    for year in schools_with_exams_by_years:
+        for school in schools_with_exams_by_years[year]:
+            extra_params = get_params_of_required_school_subject(school)
+            school.update(extra_params)
 
 def update_schools_data_to_new_coordinates(schools_with_exams_by_years):
     for year in schools_with_exams_by_years:
@@ -116,7 +144,8 @@ def get_table_data_about_ege_by_years():
     schools_for_comaparison = get_schools_for_comaparison(schools_with_exams_by_years)
     remove_excess_schools_and_keys(schools_with_exams_by_years, schools_for_comaparison)
     create_similar_keys_for_trends_of_school_subjects(schools_with_exams_by_years)
-    update_schools_data_to_mid_params(schools_with_exams_by_years)   
+    update_schools_data_to_mid_params(schools_with_exams_by_years)
+    update_schools_data_to_params_of_required_school_subject(schools_with_exams_by_years)
     update_schools_data_to_new_coordinates(schools_with_exams_by_years)
     create_clusters(schools_with_exams_by_years)
     return schools_with_exams_by_years

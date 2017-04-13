@@ -40,7 +40,7 @@ function create_button_to_change_school_subject (myMap) {
         listBoxItems = [];
         var school_subject = ['Сбросить','Русский язык','Математика','Физика','Химия','Биология',
                         'География','Информатика','Литература','История','Обществознание',
-                        'Английский язык','Все предметы'];
+                        'Английский язык','Обязательные предметы (2)','Все предметы'];
         for(var index = 0; index < school_subject.length; ++index ) {
             listBoxItems.push(new ymaps.control.ListBoxItem({
                                     data: {
@@ -52,7 +52,7 @@ function create_button_to_change_school_subject (myMap) {
         var listBox = new ymaps.control.ListBox({
                 items: listBoxItems,
                 data: {
-                    title: 'Выберите предмет'
+                    title: 'Все предметы'
                 },
                 options: {
                     layout: ListBoxLayout,

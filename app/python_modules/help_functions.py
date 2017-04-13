@@ -21,8 +21,8 @@ def get_number(field_value):
     if isinstance(field_value,(float, int)):
         return field_value
     if ',' in field_value:
-        score = field_value.split(',')
-        float_number = int(score[0]) + int(score[1]) / 100
+        field_value = field_value.replace(',', '.')
+        float_number = float(field_value)
         return float_number
     return int(field_value)
 
@@ -109,30 +109,3 @@ def set_mid_success_cluster(school):
                 extra_params = { new_key : 'four' }
             school.update(extra_params)
 
-'''
-def is_valid_school_subject_key(key):
-    if 'spravlyaemost' in key or 'GPA' in key or 'amount' in key:
-        if 'spravlyaemost' != key and 'GPA' != key and 'amount' != key:
-            return True
-'''
-'''
-def set_school_subject_cluster(school):
-    cluster_mid_success_one = 75
-    cluster_mid_success_two = 60
-    cluster_mid_success_three = 45
-    snap_shot_school = school.copy()
-    for key in snap_shot_school:
-        if is_valid_school_subject_key(key):
-            new_key = key + "cluster"
-            if school[key] == '-':
-                extra_params = { new_key : 'five' }
-            elif school[key] >= cluster_mid_success_one:
-                extra_params = { new_key : 'one' }
-            elif school[key] >= cluster_mid_success_two:
-                extra_params = { new_key : 'two' }
-            elif school[key] >= cluster_mid_success_three:
-                extra_params = { new_key : 'three' }
-            else:
-                extra_params = { new_key : 'four' }   
-            school.update(extra_params)
-'''
