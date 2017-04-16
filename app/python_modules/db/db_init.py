@@ -1,8 +1,10 @@
 import os
 import re
 
-from app.python_modules.data import csv_data_parser, subjects
+import config
 from app.python_modules.db import connector
+from app.python_modules.external_api import yandex_geocoder
+from app.python_modules.raw_data import csv_data_parser, subjects
 
 
 def create_schools_table(cursor):
@@ -75,6 +77,19 @@ def fill_db(cursor, csv_dir_path, subject_json_path):
                     :success_percent
                 );
                     ''', table_data['exam_results'])
+    schools = cursor.execute("SELECT school_id, address FROM schools").fetchall()
+    for school in schools:
+        true_coords = yandex_geocoder.get_coords_from_address(school['address'])
+        cursor.execute('''
+        UPDATE schools SET
+        latitude = :latitude,
+        longitude = :longitude
+        WHERE school_id = :school_id
+        ''', {
+            'latitude': true_coords['latitude'],
+            'longitude': true_coords['longitude'],
+            'school_id': school['school_id']
+        })
     cursor.connection.commit()
 
 
@@ -85,7 +100,11 @@ def is_db_inited(cursor):
 
 def init_db(cursor=None):
     if cursor is None:
-        cursor = connector.connect()
+        cursor = connector.connect(
+            config.DB_NAME,
+            config.DATA_CSV_DIR_PATH,
+            config.SUBJECTS_JSON_PATH
+        )
     create_schools_table(cursor)
     create_subjects_table(cursor)
     create_exam_result_table(cursor)
