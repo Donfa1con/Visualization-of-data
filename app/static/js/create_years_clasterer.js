@@ -1,5 +1,5 @@
 'use strict'
-function create_years_clasterer(myMap, year, school_subject_trend) {
+function create_years_clasterer(myMap, year, schoolSubjectTrends, schoolSubjectTrendsText) {
     return ymaps.modules.require(['PieChartClusterer'], function (PieChartClusterer) {
 
             var clusterer = new PieChartClusterer({
@@ -12,17 +12,11 @@ function create_years_clasterer(myMap, year, school_subject_trend) {
                 geoObjectHideIconOnBalloonOpen: false
             });
 
-            var trend = document.getElementById('button_to_change_trend_header').innerHTML.split(" ", 2);
-
-            var getPointData = function (index) {
+            var getPointData = function (indexSchool) {
                 return {
-                    balloonContentBody: ege_data[year][index]['Full name'] + 
-                                                '<strong><br> ' +  
-                                                    trend[0] + ' ' + trend[1] + ' : ' +
-                                                    ege_data[year][index][school_subject_trend] +
-                                                '</br></strong>',
+                    balloonContentBody: getBalloonContentBody(indexSchool, schoolSubjectTrends, schoolSubjectTrendsText),
 
-                    clusterCaption: 'метка <strong>' + index + '</strong>',
+                    clusterCaption: 'метка <strong>' + indexSchool + '</strong>',
                 };
             };
         /**
@@ -32,7 +26,7 @@ function create_years_clasterer(myMap, year, school_subject_trend) {
          */
             var getPointOptions = function (index) {
                 return { 
-                    preset: setMarkerColor_for_year(index, ege_data[year], school_subject_trend)
+                    preset: setMarkerColor_for_year(index, ege_data[year], schoolSubjectTrends)
                 };
             };
         
@@ -45,8 +39,8 @@ function create_years_clasterer(myMap, year, school_subject_trend) {
      * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark.xml#constructor-summary
      */
             for(var index_point = 0, count_geoObjects = 0; index_point < points.length; index_point++) {
-                var score = ege_data[year][index_point][school_subject_trend];
-                if (score != '-') {
+                var options = getPointOptions(index_point);
+                if (options.preset != "default#lightbluePoint") {
                     geoObjects[count_geoObjects] = new ymaps.Placemark(points[index_point], 
                                                                   getPointData(index_point), 
                                                                   getPointOptions(index_point));

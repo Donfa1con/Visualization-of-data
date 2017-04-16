@@ -1,15 +1,28 @@
 'use strict'
 function createMarker(myMap) {
-    var year = document.getElementById('button_to_change_years_header').innerHTML.split(" ")[0];
-    var school_subject = document.getElementById('button_to_change_school_subject_header').innerHTML.split(" ")[0];
-    var trend = document.getElementById('button_to_change_trend_header').innerHTML.split(" ")[0];
-    var school_subject_trend = getSchoolSubjectTrend(school_subject, trend);
+    $('#bigCheckBox').hide(0);
+    var year = $("input:radio[name='group1']:checked").val();
+    var trend = $("input:radio[name='group2']:checked").val();
+    var schoolSubjectTrends = [];
+    var schoolSubjectTrendsText = [];
 
-    if (year == '2015-2016' && school_subject != 'Выберите' && trend != 'Выберите') {
-        create_trends_markers(myMap, school_subject_trend);
+    $("input:checkbox:checked").not('#сompulsion').not('#choosingly').not('.checkbox').each(function() {
+        schoolSubjectTrends.push($(this).val() + trend);
+        schoolSubjectTrendsText.push($(this).next("label").text());
+    });
+
+    if ( year === undefined) {
+        year = '2015-2016';
+        trend = 'GPA';
+        schoolSubjectTrends = ["RussianlanguageGPA", "MathematicsprofilGPA", "PhysicsGPA", "ChemistryGPA", "ComputerscienceGPA", "BiologyGPA", "HistoryGPA", "GeographyGPA", "EnglishGPA", "SocialStudiesGPA", "LiteratureGPA"];
+        schoolSubjectTrendsText = ["Русский язык", "Математика", "Физика", "Химия", "Информатика", "Биология", "История", "География", "Английский язык", "Обществознание", "Литература"];
     }
-    if ((year == '2015' || year == '2016') && school_subject != 'Выберите' && trend != 'Выберите') {
-        create_years_clasterer(myMap, year, school_subject_trend);
+
+    if (year == '2015-2016' && schoolSubjectTrends.length != 0) {
+        create_trends_markers(myMap, schoolSubjectTrends, schoolSubjectTrendsText);
+    }
+    if ((year == '2015' || year == '2016') && schoolSubjectTrends.length != 0) {
+        create_years_clasterer(myMap, year, schoolSubjectTrends, schoolSubjectTrendsText);
     }
 };
 
@@ -21,50 +34,142 @@ function getCoordinates(ege) {
     return point;
 };
 
-function setMarkerColor_for_year(index, ege_data_current_year, school_subject_trend) {
-    school_subject_trend += 'cluster';
-    if (ege_data_current_year[index][school_subject_trend] == 'one') {
-        return 'islands#darkGreenDotIcon';
-    } else if (ege_data_current_year[index][school_subject_trend] == 'two') {
-        return 'islands#greenDotIcon';
-    } else if (ege_data_current_year[index][school_subject_trend] == 'three') {
-        return 'islands#darkOrangeDotIcon';
-    } else if (ege_data_current_year[index][school_subject_trend] == 'four') {
-        return 'islands#redDotIcon';
-    } else if (ege_data_current_year[index][school_subject_trend] == 'five') {
-        return 'islands#grayDotIcon';
+function setMarkerColor_for_year(index, ege_data_current_year, schoolSubjectTrends) {
+    var trend = $("input:radio[name='group2']:checked").val(),
+        countTrends = 0,
+        sumTrends = 0;
+    for (var i = 0; i < schoolSubjectTrends.length; i++) {
+        if (ege_data_current_year[index][schoolSubjectTrends[i]] != '-') {
+            sumTrends += ege_data_current_year[index][schoolSubjectTrends[i]];
+            countTrends++;
+        }
     }
-};
 
-function setMarkerColor_for_trends(index, school_subject_trend) {
-	var trend = ege_trends[index][school_subject_trend];
-    if (trend > 0) {
-        return 'islands#darkGreenCircleDotIcon';
-    } else if (trend < 0) {
-        return 'islands#redCircleDotIcon';
+    if (trend == 'amount') {
+        var cluster_one = 20,
+            cluster_two = 15,
+            cluster_three = 10;
+    } else if (trend == 'GPA') {
+        var cluster_one = 65,
+            cluster_two = 55,
+            cluster_three = 45;
     } else {
-        return 'islands#grayCircleDotIcon';
+        var cluster_one = 100,
+            cluster_two = 85,
+            cluster_three = 70;
+    }
+
+    var score = sumTrends / countTrends;
+
+    if (isNaN(score)){
+        var claster = 'five';
+    } else if (score >= cluster_one){
+        var claster = 'one';
+    } else if (score >= cluster_two) {
+        var claster = 'two';
+    } else if (score >= cluster_three) {
+        var claster = 'three';
+    } else {
+        var claster = 'four';
+    }
+
+    if (claster == 'one') {
+        return 'islands#darkGreenDotIcon';
+    } else if (claster == 'two') {
+        return 'islands#greenDotIcon';
+    } else if (claster == 'three') {
+        return 'islands#darkOrangeDotIcon';
+    } else if (claster == 'four') {
+        return 'islands#redDotIcon';
+    } else {
+        return "default#lightbluePoint"
     }
 };
 
-function getSchoolSubjectTrend(school_subject, trend) {
-    var school_subject_and_trands = ['Русский','Математика','Физика','Химия',
-                                    'Биология','География','Информатика','Литература',
-                                    'История','Обществознание','Английский','Обязательные',
-                                    'Все','Количество','Средний', 'Справляемость'];
-    var translator_school_subject_and_trands = ['Russianlanguage','Mathematicsprofil',
-                                            'Physics','Chemistry','Biology','Geography',
-                                            'Computerscience','Literature','History',
-                                            'SocialStudies','English','Required','',
-                                            'amount', 'GPA','spravlyaemost'];
-    var similar_dict = {};
+function setMarkerColor_for_trends(index, schoolSubjectTrends) {
+    var redFlag = false,
+        greenFlag = false,
+        grayFlag = false,
+        sumTrend = 0,
+        countTrends = 0;
 
-    for (var index = 0; index < school_subject_and_trands.length; ++index) {
-        var subject_or_trands = school_subject_and_trands[index];
-        var translator_subject_or_trands = translator_school_subject_and_trands[index];
-        similar_dict[subject_or_trands] = translator_subject_or_trands
+    for (var i = 0; i < schoolSubjectTrends.length; i++) {
+        if (ege_trends[index][schoolSubjectTrends[i]] > 0) {
+            greenFlag = true;
+            sumTrend += ege_trends[index][schoolSubjectTrends[i]];
+            countTrends++;
+        } else if (ege_trends[index][schoolSubjectTrends[i]] < 0) {
+            redFlag = true;
+            sumTrend += ege_trends[index][schoolSubjectTrends[i]];
+            countTrends++;
+        } else if (ege_trends[index][schoolSubjectTrends[i]] != '-'){
+            grayFlag = true;
+            sumTrend += ege_trends[index][schoolSubjectTrends[i]];
+            countTrends++;
+        }
     }
 
-    var school_subject_trend = similar_dict[school_subject] + similar_dict[trend];
-    return school_subject_trend;
+    if (sumTrend == 0 && countTrends != 0) {
+        console.log(sumTrend, countTrends);
+        $('#bigCheckBox').show();
+        return 'islands#blueCircleDotIcon';
+    } else if (!redFlag && greenFlag) {
+        return 'islands#darkGreenCircleDotIcon';
+    } else if (redFlag && !greenFlag) {
+        return 'islands#redCircleDotIcon';
+    } else if (grayFlag || (redFlag && greenFlag)){
+        return 'islands#grayCircleDotIcon';
+    } else {
+        return "default#lightbluePoint"
+    }
+};
+
+function getBalloonContentBody(indexSchool, schoolSubjectTrends, schoolSubjectTrendsText) {
+    var trend = $("input:radio[name='group2']:checked").val() || 'GPA';
+    var year = $("input:radio[name='group1']:checked").val() || "2015-2016";
+    var countTrends = 0;
+    var sumTrend = 0;
+
+    if (year == "2015-2016") {
+        if (trend == 'amount') {
+            trend = 'количества учеников';
+        } else if (trend == 'GPA') {
+            trend = 'среднего балла';
+        } else {
+            trend = 'справляемости'
+        }
+        var BalloonContent = ege_trends[indexSchool]['Full name'] + '<br>' + '<strong>Изменение ' + trend + ' по предметам за ' + year + ' год:</strong>' + '<br>';
+        for (var i = 0; i < schoolSubjectTrends.length; i++) {
+            if (ege_trends[indexSchool][schoolSubjectTrends[i]] != '-') {
+                BalloonContent +=  schoolSubjectTrendsText[i] + ': ' + '<strong> ';
+                if (ege_trends[indexSchool][schoolSubjectTrends[i]] > 0 && year == "2015-2016") {
+                    BalloonContent += '+';
+                }
+                BalloonContent += ege_trends[indexSchool][schoolSubjectTrends[i]] + '</strong><br>';
+                countTrends++;
+                sumTrend += ege_trends[indexSchool][schoolSubjectTrends[i]];
+            }
+        }
+        var midTrend = (sumTrend / countTrends).toFixed(2);
+        BalloonContent += '<strong> ' + 'Среднее изменение тренда: ';
+        if (midTrend > 0 && year == "2015-2016"){
+            BalloonContent += '+';
+        }
+
+    } else {
+        trend = $("input:radio[name='group2']:checked").next('label').text();
+        var BalloonContent = ege_data[year][indexSchool]['Full name'] + '<br>' + '<strong>' + trend + ' по предметам за ' + year + ' год:</strong>' + '<br>';
+        for (var i = 0; i < schoolSubjectTrends.length; i++) {
+            if (ege_data[year][indexSchool][schoolSubjectTrends[i]] != '-') {
+                BalloonContent +=  schoolSubjectTrendsText[i] + ': ' + '<strong> ' + ege_data[year][indexSchool][schoolSubjectTrends[i]] + '</strong><br>';;
+                countTrends++;
+                sumTrend += ege_data[year][indexSchool][schoolSubjectTrends[i]];
+            }
+        }
+        var midTrend = (sumTrend / countTrends).toFixed(2);
+        BalloonContent += '<strong> ' + 'Среднее значение тренда: ';
+    }
+
+    BalloonContent += midTrend + '</strong><br>';
+    return BalloonContent;
 };
