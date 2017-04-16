@@ -1,11 +1,9 @@
 'use strict'
-function create_trends_markers(myMap, school_subject_trend) {
+function create_trends_markers(myMap, schoolSubjectTrends, schoolSubjectTrendsText) {
 
     var getPointData = function (index) {
         return {
-            balloonContentBody: ege_trends[index]['Full name'] + 
-                                     '<strong><br> ' + 'Тренд изменился на: ' +
-                    ege_trends[index][school_subject_trend] + '</br></strong>',
+            balloonContentBody: getBalloonContentBody(index, schoolSubjectTrends, schoolSubjectTrendsText),
 
             clusterCaption: 'метка <strong>' + index + '</strong>',
         };
@@ -14,23 +12,21 @@ function create_trends_markers(myMap, school_subject_trend) {
     
     var getPointOptions = function (index) {
         return { 
-            preset: setMarkerColor_for_trends(index, school_subject_trend)
+            preset: setMarkerColor_for_trends(index, schoolSubjectTrends)
         };
     };
     
     var points = getCoordinates(ege_trends);
-
     for(var index_point = 0; index_point < points.length; index_point++) {
-        var score = ege_trends[index_point][school_subject_trend];
-        if (SHOW_ELEMENTS){
-            if (score != '-') {
-                myMap.geoObjects.add( new ymaps.Placemark(points[index_point], 
-                                                    getPointData(index_point), 
-                                                    getPointOptions(index_point))
-                                    );
-            }
-        } else {
-            if (score != '-' && score != 0) {
+        if (getPointOptions(index_point).preset != "default#lightbluePoint") {
+            if (!$('.checkbox').prop('checked')) {
+                if (getPointOptions(index_point).preset != 'islands#blueCircleDotIcon'){
+                    myMap.geoObjects.add( new ymaps.Placemark(points[index_point], 
+                                                        getPointData(index_point), 
+                                                        getPointOptions(index_point))
+                                        );
+                }
+            } else {
                 myMap.geoObjects.add( new ymaps.Placemark(points[index_point], 
                                                     getPointData(index_point), 
                                                     getPointOptions(index_point))

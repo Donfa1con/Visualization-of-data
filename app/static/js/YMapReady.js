@@ -9,10 +9,8 @@ ymaps.ready(function(){
             suppressMapOpenBlock: true
         });
 
-        create_trends_markers(myMap, 'GPA')
+        
+        create_button_side_panel (myMap);
         create_button_checkbox (myMap);
-        create_button_to_change_trend (myMap);
-        create_button_to_change_school_subject(myMap);
-        create_button_to_change_years(myMap);
-
+        createMarker(myMap);
 });
