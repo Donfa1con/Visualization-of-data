@@ -11,13 +11,6 @@ function createMarker(myMap) {
         schoolSubjectTrendsText.push($(this).next("label").text());
     });
 
-    if ( year === undefined) {
-        year = '2015-2016';
-        trend = 'GPA';
-        schoolSubjectTrends = ["RussianlanguageGPA", "MathematicsprofilGPA", "PhysicsGPA", "ChemistryGPA", "ComputerscienceGPA", "BiologyGPA", "HistoryGPA", "GeographyGPA", "EnglishGPA", "SocialStudiesGPA", "LiteratureGPA"];
-        schoolSubjectTrendsText = ["Русский язык", "Математика", "Физика", "Химия", "Информатика", "Биология", "История", "География", "Английский язык", "Обществознание", "Литература"];
-    }
-
     if (year == '2015-2016' && schoolSubjectTrends.length != 0) {
         create_trends_markers(myMap, schoolSubjectTrends, schoolSubjectTrendsText);
     }
@@ -110,7 +103,6 @@ function setMarkerColor_for_trends(index, schoolSubjectTrends) {
     }
 
     if (sumTrend == 0 && countTrends != 0) {
-        console.log(sumTrend, countTrends);
         $('#bigCheckBox').show();
         return 'islands#blueCircleDotIcon';
     } else if (!redFlag && greenFlag) {
@@ -125,8 +117,8 @@ function setMarkerColor_for_trends(index, schoolSubjectTrends) {
 };
 
 function getBalloonContentBody(indexSchool, schoolSubjectTrends, schoolSubjectTrendsText) {
-    var trend = $("input:radio[name='group2']:checked").val() || 'GPA';
-    var year = $("input:radio[name='group1']:checked").val() || "2015-2016";
+    var trend = $("input:radio[name='group2']:checked").val();
+    var year = $("input:radio[name='group1']:checked").val();
     var countTrends = 0;
     var sumTrend = 0;
 

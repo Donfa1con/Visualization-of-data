@@ -13,6 +13,7 @@
   <script src="{{url_for('static', filename='js/create_trends_markers.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_checkbox.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_side_panel.js')}}"></script>
+  <script src="{{url_for('static', filename='js/button_help_tips.js')}}"></script>
   <script src="{{url_for('static', filename='js/YMapReady.js')}}"></script>
   <script>
   	'use strict'
@@ -20,7 +21,6 @@
     	var jqXHR = $.ajax({
         	url: url_to_json,
         	async: false});
-
     	return $.parseJSON(jqXHR.responseText);
 	} 
 
