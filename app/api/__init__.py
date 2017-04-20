@@ -1,9 +1,14 @@
-from flask import jsonify
+from flask import jsonify, request
 
-import app.api.get_schools
+from app.api import get_years, get_subjects, get_average_score
 from app import app, db
 
 
-@app.route('/api/get_schools', methods=['GET'])
-def api_get_schools():
-    return jsonify(get_schools.execute(db))
+@app.route('/api/get_years', methods=['POST'])
+def api_get_years():
+    return jsonify(get_years.execute(db))
+
+
+@app.route('/api/get_subjects', methods=['POST'])
+def api_get_subjects():
+    return jsonify(get_subjects.execute(db, int(request.form['year'])))
