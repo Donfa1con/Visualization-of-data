@@ -6,7 +6,7 @@
   },
   {
     "id": 2,
-    "data_name": "Mathematics ",
+    "data_name": "Mathematics",
     "name": "Математика"
   },
   {
@@ -21,17 +21,17 @@
   },
   {
     "id": 5,
-    "data_name": "Physics ",
+    "data_name": "Physics",
     "name": "Физика"
   },
   {
     "id": 6,
-    "data_name": "Chemistry ",
+    "data_name": "Chemistry",
     "name": "Химия"
   },
   {
     "id": 7,
-    "data_name": "Computer science ",
+    "data_name": "Computer science",
     "name": "Информатика"
   },
   {
@@ -51,8 +51,8 @@
   },
   {
     "id": 11,
-    "data_name": "English ",
-    "name": "Ангийский"
+    "data_name": "English",
+    "name": "Ангийский язык"
   },
   {
     "id": 12,
@@ -63,5 +63,15 @@
     "id": 13,
     "data_name": "Literature",
     "name": "Литература"
+  },
+  {
+    "id": 14,
+    "data_name": "German",
+    "name": "Немецкий язык"
+  },
+  {
+    "id": 15,
+    "data_name": "French",
+    "name": "Французский язык"
   }
 ]

@@ -11,13 +11,13 @@ function create_button_side_panel (myMap) {
 				'<ul class="li-radio" style="display:none">',
 					'<li><input type="radio" class="radio" id="year2015" name="group1" value="2015"><label for="year2015">2015</label></li>',
 					'<li><input type="radio" class="radio" id="year2016" name="group1" value="2016"><label for="year2016">2016</label></li>',
-					'<li><input type="radio" class="radio" id="year2015-6" name="group1" value="2015-2016" checked><label for="year2015-6">2015-2016</label></li>',
+					'<li><input type="radio" class="radio" id="year2015-6" name="group1" value="2015-2016"><label for="year2015-6">2015-2016</label></li>',
 				'</ul>',
 				'<hr>',
 				'<p class="upperP">Тренд</p>',
 				'<ul class="li-radio" style="display:none">',
 					'<li><input type="radio" class="radio" id="trend1" name="group2" value="amount"><label for="trend1">Количество учеников</label></li>',
-					'<li><input type="radio" class="radio" id="trend2" name="group2" value="GPA" checked><label for="trend2">Средний балл</label></li>',
+					'<li><input type="radio" class="radio" id="trend2" name="group2" value="GPA"><label for="trend2">Средний балл</label></li>',
 					'<li><input type="radio" class="radio" id="trend3" name="group2" value="spravlyaemost"><label for="trend3">Справляемость</label></li>',
 				'</ul>',
 				'<hr>',
@@ -25,8 +25,9 @@ function create_button_side_panel (myMap) {
 				'<p class="upperP">Тип экзамена</p>',
 				'<ul class="li-radio" style="display:none">',
 					'<li><input type="radio" class="radio" id="OGE" name="group3" value="OGE"><label for="OGE">ГИА</label></li>',
-					'<li><input type="radio" class="radio" id="EGE" name="group3" value="EGE" checked><label for="EGE">ЕГЭ</label></li>',
+					'<li><input type="radio" class="radio" id="EGE" name="group3" value="EGE"><label for="EGE">ЕГЭ</label></li>',
 				'</ul>',
+				'<hr>',
 				'<hr>',
 				'<p class="upperP" id="exams">Экзамены</p>',
 
@@ -197,11 +198,19 @@ function create_button_side_panel (myMap) {
  			}
  		});
 
+
  		$(document).on("click","#showButton", function(){
- 			console.log("qwwq");
- 			myMap.geoObjects.removeAll();
-  			createMarker(myMap);
- 		
+ 			if ($("input:checkbox:checked").not('.checkbox').length != 0 &&
+ 				$("input:radio:checked").length == 3) {
+ 				myMap.geoObjects.removeAll();
+  				$.post("/api/get_subjects",
+  					{
+        				year: 20160301
+    				}
+    			).done(function(data) {
+        			console.log(data);
+    			});
+ 			}	
  		});
 	});
 

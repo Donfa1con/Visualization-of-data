@@ -24,7 +24,8 @@ def create_subjects_table(cursor):
     cursor.executescript('''
     CREATE TABLE subjects(
       subject_id INTEGER,
-      name TEXT
+      name TEXT,
+      data_name TEXT
     );
     ''')
 
@@ -50,7 +51,7 @@ def fill_db(cursor, csv_dir_path, subject_json_path):
     table_files = os.listdir(csv_dir_path)
     subjects_info = subjects.get_subjects_info(subject_json_path)
     cursor.executemany('''
-    INSERT INTO subjects VALUES (:id, :name)
+    INSERT INTO subjects VALUES (:id, :name, :data_name)
     ''', subjects_info)
     for table_file in table_files:
         table_path = "%s%s" % (csv_dir_path, table_file)

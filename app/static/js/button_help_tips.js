@@ -26,28 +26,34 @@ function create_button_help_tips (myMap) {
 	);
 
 	$(document).ready(function() { 
+		var showTips = false;
+
     	$(document).on("click","#showButton", function(){
-    		var schoolSubjectTrendsText = [];
- 			tips.data.set('year', $("input:radio[name='group1']:checked").next("label").text());
-			tips.data.set('trend', $("input:radio[name='group2']:checked").next("label").text());
-			tips.data.set('typeExam', $("input:radio[name='group3']:checked").next("label").text());
-			$("input:checkbox:checked").not('#сompulsion').not('#choosingly').not('.checkbox').each(function() {
-        		schoolSubjectTrendsText.push($(this).next("label").text());
-    		});
-    		if (schoolSubjectTrendsText.length == 0){
-    			tips.data.set('exams', 'Не выбраны');
-    		} else {
+    		if ($("input:checkbox:checked").not('.checkbox').length != 0 &&
+ 				$("input:radio:checked").length == 3) {
+    			var schoolSubjectTrendsText = [];
+ 				tips.data.set('year', $("input:radio[name='group1']:checked").next("label").text());
+				tips.data.set('trend', $("input:radio[name='group2']:checked").next("label").text());
+				tips.data.set('typeExam', $("input:radio[name='group3']:checked").next("label").text());
+				$("input:checkbox:checked").not('#сompulsion').not('#choosingly').not('.checkbox').each(function() {
+        			schoolSubjectTrendsText.push($(this).next("label").text());
+    			});
     			tips.data.set('exams', schoolSubjectTrendsText);
+    			
+    			if (showTips) {
+    				$(".info").show(0);
+    			}
     		}
-    		console.log(schoolSubjectTrendsText)
-    		$(".info").show(0);
+    		
  		});
 
     	$(document).on("click",".label_info", function(){
     		if ($(".info").is(":visible")) {
     			$(".info").hide(0);
+    			showTips = false;
     		} else {
     			$(".info").show(0);
+    			showTips = true;
     		}
  		});
 
