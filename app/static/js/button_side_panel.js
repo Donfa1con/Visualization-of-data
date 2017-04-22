@@ -203,9 +203,12 @@ function create_button_side_panel (myMap) {
  			if ($("input:checkbox:checked").not('.checkbox').length != 0 &&
  				$("input:radio:checked").length == 3) {
  				myMap.geoObjects.removeAll();
-  				$.post("/api/get_subjects",
+  				$.post("/api/get_year_info",
   					{
-        				year: 20160301
+  						year: '2015',
+  						trend: 'gpa',
+        				subjects: "1,2,3,4,5,6,7,8,9,10"
+
     				}
     			).done(function(data) {
         			console.log(data);

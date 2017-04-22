@@ -15,19 +15,6 @@
   <script src="{{url_for('static', filename='js/button_side_panel.js')}}"></script>
   <script src="{{url_for('static', filename='js/button_help_tips.js')}}"></script>
   <script src="{{url_for('static', filename='js/YMapReady.js')}}"></script>
-  <script>
-  	'use strict'
-  	function getJsonData(url_to_json) {
-    	var jqXHR = $.ajax({
-        	url: url_to_json,
-        	async: false});
-    	return $.parseJSON(jqXHR.responseText);
-	} 
-
-  	var ege_data = getJsonData("{{url_for('static', filename='Tables_data.json')}}");
-  	var ege_trends = getJsonData("{{url_for('static', filename='School_trends.json')}}");
-
-  </script>
 </head>
 <body>
 	<div id="map"></div>
