@@ -18,16 +18,16 @@ def execute(cursor, trend, year, subjects):
         LEFT JOIN subjects s ON s.subject_id = ex.subject_id
         WHERE year = %s AND
               ex.subject_id in (%s) AND
-	      (ex.%s != '-' AND ex.%s != '')
+          (ex.%s != '-' AND ex.%s != '')
         ''' % (trend, trend, year, subjects, trend, trend))
-    
+
     subjects_info = [{
-                        'subject_id': subject_info['subject_id'],
-                        'school_id': subject_info['school_id'],
-                        'exam_type': subject_info['exam_type'],
-                        trend: subject_info[trend],
-                        'name': subject_info['name']
-                     }for subject_info in subjects_info]
+                         'subject_id': subject_info['subject_id'],
+                         'school_id': subject_info['school_id'],
+                         'exam_type': subject_info['exam_type'],
+                         trend: subject_info[trend],
+                         'name': subject_info['name']
+                     } for subject_info in subjects_info]
 
     schools_info = cursor.execute('''SELECT * FROM schools;''')
     features = create_features_schools(schools_info, trend, year)
@@ -35,8 +35,9 @@ def execute(cursor, trend, year, subjects):
     response = {
         "type": "FeatureCollection",
         "features": features
-        }
+    }
     return response
+
 
 def create_features_schools(schools_info, trend, year):
     features = []
@@ -45,21 +46,21 @@ def create_features_schools(schools_info, trend, year):
             "type": "Feature",
             "id": row["school_id"],
             "geometry": {
-                    "type": "Point",
-                    "coordinates": [row['latitude'], row['longitude']]
-                        },
+                "type": "Point",
+                "coordinates": [row['latitude'], row['longitude']]
+            },
             "properties": {
-                    "balloonContent": "%s%s%s%s" %
-                             (("%s<br>" % row['name']),
-                             ("<strong>Адрес:<strong> %s<br>" % row['address']),
-                             ("<strong>Сайт:<strong> %s<br>" % row['website']),
-                             ("<strong>%s по предметам за %s год:</strong><br>" %
-                             (get_baloon_trend(trend), year)))
-                        },
+                "balloonContent": "%s%s%s%s" %
+                                  (("%s<br>" % row['name']),
+                                   ("<strong>Адрес:<strong> %s<br>" % row['address']),
+                                   ("<strong>Сайт:<strong> %s<br>" % row['website']),
+                                   ("<strong>%s по предметам за %s год:</strong><br>" %
+                                    (get_baloon_trend(trend), year)))
+            },
             "options": {
-                    "preset": 0
-                        }
-                  }
+                "preset": 0
+            }
+        }
         features.append(feature)
     return features
 
@@ -71,7 +72,8 @@ def update_features_baloon_content(subjects_info, features, trend):
         for feature in features:
             if feature["id"] == row['school_id']:
                 feature["properties"]["balloonContent"] += ("<strong>%s<strong> %s<br>" %
-                                               (row["name"], get_score_trend(row, trend)))
+                                                            (row["name"],
+                                                             get_score_trend(row, trend)))
                 sum_trend += get_score_trend(row, trend)
                 number_of_trends += 1
                 is_already_passed_similar_id = True
@@ -79,11 +81,13 @@ def update_features_baloon_content(subjects_info, features, trend):
                 is_already_passed_similar_id = False
                 mid_score = round(sum_trend / number_of_trends, 2)
                 feature["properties"]["balloonContent"] += ("<strong>%s<strong> %s" %
-                                                ("Среднее значение тренда:", mid_score))
+                                                            ("Среднее значение тренда:",
+                                                             mid_score))
                 feature["options"]["preset"] = get_feature_options_color(mid_score, trend)
                 sum_trend = 0
                 number_of_trends = 0
                 break
+
 
 def get_baloon_trend(trend):
     if trend == "gpa":
@@ -98,7 +102,7 @@ def get_score_trend(row, trend):
     oge_russianlanguage_index = 2.5641
     oge_mathematics_index = 2.63158
     ege_mathematics_index = 20
-    row[trend] = float(str(row[trend]).replace(",","."))
+    row[trend] = float(str(row[trend]).replace(",", "."))
     if row["subject_id"] == 1 and row["exam_type"] == "OGE":
         return round(oge_russianlanguage_index * row[trend], 2)
     elif row["subject_id"] == 2:
@@ -122,7 +126,7 @@ def get_feature_options_color(mid_score, trend):
         cluster_one = 100
         cluster_two = 85
         cluster_three = 70
-    
+
     if mid_score >= cluster_one:
         return 'islands#darkGreenDotIcon'
     elif mid_score >= cluster_two:
