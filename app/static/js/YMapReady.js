@@ -12,5 +12,4 @@ ymaps.ready(function(){
         create_button_help_tips (myMap);
         create_button_side_panel (myMap);
         create_button_checkbox (myMap);
-        createMarker(myMap);
 });
