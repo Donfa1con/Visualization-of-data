@@ -40,7 +40,7 @@ def create_exam_result_table(cursor):
           amount INTEGER,
           gpa REAL,
           success_percent REAL,
-          PRIMARY KEY (school_id, subject_id, year),
+          PRIMARY KEY (school_id, subject_id, year, exam_type),
           FOREIGN KEY (school_id) REFERENCES schools(school_id),
           FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
         );
