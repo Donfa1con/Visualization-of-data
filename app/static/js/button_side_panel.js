@@ -17,8 +17,8 @@ function create_button_side_panel (myMap) {
 				'<p class="upperP">Тренд</p>',
 				'<ul class="li-radio" style="display:none">',
 					'<li><input type="radio" class="radio" id="trend1" name="group2" value="amount"><label for="trend1">Количество учеников</label></li>',
-					'<li><input type="radio" class="radio" id="trend2" name="group2" value="GPA"><label for="trend2">Средний балл</label></li>',
-					'<li><input type="radio" class="radio" id="trend3" name="group2" value="spravlyaemost"><label for="trend3">Справляемость</label></li>',
+					'<li><input type="radio" class="radio" id="trend2" name="group2" value="gpa"><label for="trend2">Средний балл</label></li>',
+					'<li><input type="radio" class="radio" id="trend3" name="group2" value="success_percent"><label for="trend3">Справляемость</label></li>',
 				'</ul>',
 				'<hr>',
 				'<hr>',
@@ -39,9 +39,9 @@ function create_button_side_panel (myMap) {
 					'</div>',
 					'<p class="lowerP examsEGE">Обязательные:</p>',
 					'<ul class="examsEGE">',
-						'<li><input type="checkbox" class="radio" id="Russian" name="group3_1" value="Russianlanguage" ><label for="Russian">Русский язык</label></li>',
-						'<li><input type="checkbox" class="radio" id="Mathematicsprofil" name="group3_1" value="Mathematicsprofil" ><label for="Mathematicsprofil">Математика проф.</label></li>',
-						'<li><input type="checkbox" class="radio" id="Mathematicsbase" name="group3_1" value="Mathematicsbase" ><label for="Mathematicsbase">Математика базовая</label></li>',
+						'<li><input type="checkbox" class="radio" id="Russian" name="group3_1" value="1" ><label for="Russian">Русский язык</label></li>',
+						'<li><input type="checkbox" class="radio" id="Mathematicsprofil" name="group3_1" value="3" ><label for="Mathematicsprofil">Математика проф.</label></li>',
+						'<li><input type="checkbox" class="radio" id="Mathematicsbase" name="group3_1" value="4" ><label for="Mathematicsbase">Математика базовая</label></li>',
 					'</ul>',
 					'<hr class="examsEGE">',
 
@@ -51,17 +51,17 @@ function create_button_side_panel (myMap) {
 					'</div>',
 					'<p class="lowerP examsEGE">По выбору:</p>',
 					'<ul style="display:none" id="addEGE" class="examsEGE">',  
-						'<li><input type="checkbox" class="radio" id="Physics" name="group3_2" value="Physics" ><label for="Physics">Физика</label></li>',
-						'<li><input type="checkbox" class="radio" id="Chemistry" name="group3_2" value="Chemistry" ><label for="Chemistry">Химия</label></li>',
-						'<li><input type="checkbox" class="radio" id="Computer" name="group3_2" value="Computerscience" ><label for="Computer">Информатика</label></li>',
-						'<li><input type="checkbox" class="radio" id="Biology" name="group3_2" value="Biology" ><label for="Biology">Биология</label></li>',
-						'<li><input type="checkbox" class="radio" id="History" name="group3_2" value="History" ><label for="History">История</label></li>',
-						'<li><input type="checkbox" class="radio" id="Geography" name="group3_2" value="Geography" ><label for="Geography">География</label></li>',
-						'<li><input type="checkbox" class="radio" id="Social" name="group3_2" value="SocialStudies" ><label for="Social">Обществознание</label></li>',
-						'<li><input type="checkbox" class="radio" id="Literature" name="group3_2" value="Literature" ><label for="Literature">Литература</label></li>',
-						'<li><input type="checkbox" class="radio" id="English" name="group3_2" value="English" ><label for="English">Английский язык</label></li>',
-						'<li><input type="checkbox" class="radio" id="German" name="group3_2" value="German" ><label for="German">Немецкий язык</label></li>',
-						'<li><input type="checkbox" class="radio" id="French" name="group3_2" value="French" ><label for="French">Французский язык</label></li>',
+						'<li><input type="checkbox" class="radio" id="Physics" name="group3_2" value="5" ><label for="Physics">Физика</label></li>',
+						'<li><input type="checkbox" class="radio" id="Chemistry" name="group3_2" value="6" ><label for="Chemistry">Химия</label></li>',
+						'<li><input type="checkbox" class="radio" id="Computer" name="group3_2" value="7" ><label for="Computer">Информатика</label></li>',
+						'<li><input type="checkbox" class="radio" id="Biology" name="group3_2" value="8" ><label for="Biology">Биология</label></li>',
+						'<li><input type="checkbox" class="radio" id="History" name="group3_2" value="9" ><label for="History">История</label></li>',
+						'<li><input type="checkbox" class="radio" id="Geography" name="group3_2" value="10" ><label for="Geography">География</label></li>',
+						'<li><input type="checkbox" class="radio" id="Social" name="group3_2" value="12" ><label for="Social">Обществознание</label></li>',
+						'<li><input type="checkbox" class="radio" id="Literature" name="group3_2" value="13" ><label for="Literature">Литература</label></li>',
+						'<li><input type="checkbox" class="radio" id="English" name="group3_2" value="11" ><label for="English">Английский язык</label></li>',
+						'<li><input type="checkbox" class="radio" id="German" name="group3_2" value="14" ><label for="German">Немецкий язык</label></li>',
+						'<li><input type="checkbox" class="radio" id="French" name="group3_2" value="15" ><label for="French">Французский язык</label></li>',
 					'</ul>',
 
 					'<div style="display:none" class="checkUp examsOGE">',
@@ -70,8 +70,8 @@ function create_button_side_panel (myMap) {
 					'</div>',
 					'<p style="display:none" class="lowerP examsOGE">Все:</p>',
 					'<ul style="display:none"  class="examsOGE">', 
-						'<li><input type="checkbox" class="radio" id="RussianOGE" name="group3_3" value="RussianlanguageOGE"><label for="RussianOGE">Русский язык</label></li>',
-						'<li><input type="checkbox" class="radio" id="MathematicsOGE" name="group3_3" value="MathematicsOGE"><label for="MathematicsOGE">Математика</label></li>',
+						'<li><input type="checkbox" class="radio" id="RussianOGE" name="group3_3" value="1"><label for="RussianOGE">Русский язык</label></li>',
+						'<li><input type="checkbox" class="radio" id="MathematicsOGE" name="group3_3" value="2"><label for="MathematicsOGE">Математика</label></li>',
 					'</ul>',
 				'</ul>',
 				'<hr>',
@@ -202,17 +202,9 @@ function create_button_side_panel (myMap) {
  		$(document).on("click","#showButton", function(){
  			if ($("input:checkbox:checked").not('.checkbox').length != 0 &&
  				$("input:radio:checked").length == 3) {
- 				myMap.geoObjects.removeAll();
-  				$.post("/api/get_year_info",
-  					{
-  						year: '2015',
-  						trend: 'gpa',
-        				subjects: "1,2,3,4,5,6,7,8,9,10"
 
-    				}
-    			).done(function(data) {
-        			console.log(data);
-    			});
+ 				createMarker(myMap);
+ 				
  			}	
  		});
 	});

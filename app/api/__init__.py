@@ -1,6 +1,6 @@
 from flask import jsonify, request
 
-from app.api import get_years, get_year_info, get_subjects, get_average_score
+from app.api import get_years, get_year_info, get_subjects, get_average_score, get_trends_info
 from app import app, db
 
 
@@ -17,6 +17,14 @@ def api_get_subjects():
 @app.route('/api/get_year_info', methods=['POST'])
 def api_get_year_info():
     return jsonify(get_year_info.execute(db,
-                                request.form['trend'],
-                                int(request.form['year']),
-                                request.form['subjects']))
+                                         request.form['trend'],
+                                         int(request.form['year']),
+                                         request.form['exam_type'],
+                                         request.form['subjects']))
+
+
+@app.route('/api/get_trends_info', methods=['POST'])
+def api_get_trends_info():
+    return jsonify(get_trends_info.execute(db,
+                                           request.form['trend'],
+                                           request.form['subjects']))
