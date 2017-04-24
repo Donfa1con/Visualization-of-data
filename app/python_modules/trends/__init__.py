@@ -17,3 +17,16 @@ def get_cluster_id(score, trend=None):
         'name': trend_name,
         'id': cluster_id
     }
+
+
+def get_list():
+    trends = [
+        'amount',
+        'gpa',
+        'success_percent'
+    ]
+    trend_list = {}
+    for trend in trends:
+        trend_module = import_module('app.python_modules.trends.' + trend)
+        trend_list[trend] = trend_module.get_name()
+    return trend_list

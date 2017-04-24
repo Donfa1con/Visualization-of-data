@@ -1,7 +1,9 @@
-def execute(cursor, years, subjects):
+def execute(cursor, years, subjects, trend):
     """
     :param cursor: DB cursor
-    :type cursor: sqlite3.cursor
+    :param years: year list
+    :param subjects: subject id list
+    :param trend: trend name
     :return: [
         {
             'school_id',
