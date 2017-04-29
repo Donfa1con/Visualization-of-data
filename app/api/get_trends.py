@@ -1,4 +1,4 @@
-from app.python_modules import trends
+from app.modules.trends import trends
 
 
 def execute(cursor):
