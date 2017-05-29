@@ -1,0 +1,86 @@
+.menu {
+  background: #444;
+  right: 0px;
+  height: 100%;
+  position: fixed;
+  width: 175px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  display: none;
+  padding-bottom: 45px; 
+}
+
+.menu>div {
+    overflow: auto;
+    height: 90%;
+}
+
+.menu>p {
+  border-bottom: 1px solid #fff;
+}
+ 
+.menu li {
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
+}
+
+.menu li label {
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.menu li:hover {
+  background: #31a317 !important;
+}
+
+.menu hr {
+  height: 0.5px;
+  border: none;
+  background: #5ab55a;
+  margin: 0; 
+}
+
+.radio, .radio label {
+  display: inline;
+/*  opacity: 0;
+*/  cursor: pointer;
+}
+
+.menu>div div, .lowerP{
+  display: inline;
+}
+
+.generalCheckBox {
+  padding-bottom: 5px;
+  border-top: 2px solid #fff;
+  background-color: #323232;
+  cursor: pointer;
+}
+
+.generalCheckBox li p {
+  font-weight: 500 !important;
+}
+
+.title {
+  margin: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 15px;
+  text-align: center !important;
+  text-transform: uppercase;
+}
+
+#nextButton, #periodButton{
+  outline: none !important;
+  text-align: center;
+  margin-top: 3px;
+  width: 100%;
+}
+
+#periodButton {
+  padding: 3px 0px 3px 0px !important;
+}
+

@@ -9,7 +9,6 @@ ymaps.ready(function(){
             suppressMapOpenBlock: true
         });
 
-        create_button_help_tips (myMap);
-        create_button_side_panel (myMap);
-        create_button_checkbox (myMap);
+        createNavBar(myMap);
+        createSidePanel(myMap);
 });
