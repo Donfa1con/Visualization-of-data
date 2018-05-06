@@ -1,8 +1,8 @@
-.ymaps-2-1-50-controls-pane .ymaps-2-1-50-controls__control {
+[class$="controls-pane"] [class$="controls__control"] {
 	position: relative !important;
 }
 
-.ymaps-2-1-50-zoom {
+[class$="zoom"] {
 	position: absolute !important;
 	margin-top: 45px;
 }

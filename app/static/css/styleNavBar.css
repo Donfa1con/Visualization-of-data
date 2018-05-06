@@ -1,7 +1,6 @@
 * {
 	padding: 0;
 	margin: 0;
-	
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	        box-sizing: border-box;
@@ -106,6 +105,10 @@ only screen and (max-device-width : 1220px){
 	nav small {
 		font: 100 10px/1 Helvetica, Verdana, Arial, sans-serif;
 	}
+
+	.menu>div {
+        padding-bottom: 10%;
+	}
 }
 
 @media only screen and (max-width : 930px),
@@ -123,6 +126,10 @@ only screen and (max-device-width : 930px){
 	nav li:nth-child(5) span, nav li:nth-child(6) span, nav li:nth-child(7) span, nav li:nth-child(8) span {
 		border-bottom: none;
 		border-right: none;
+	}
+
+	.menu>div {
+        padding-bottom: 60%;
 	}
 }
 
@@ -142,6 +149,10 @@ only screen and (max-device-width : 580px){
 	nav li:nth-child(5) span, nav li:nth-child(6) span {
 		border-bottom: 1px solid #fff;
 		border-right: 1px solid #fff;
+	}
+
+	.menu>div {
+        padding-bottom: 80%;
 	}
 }
 

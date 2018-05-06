@@ -8,7 +8,7 @@
   padding: 0;
   color: #fff;
   display: none;
-  padding-bottom: 45px; 
+  padding-bottom: 2%; 
 }
 
 .menu>div {
@@ -45,8 +45,8 @@
 
 .radio, .radio label {
   display: inline;
-/*  opacity: 0;
-*/  cursor: pointer;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .menu>div div, .lowerP{

@@ -3,6 +3,10 @@
 <head>
   <title>Визуализация данных</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">   
+  <meta name="format-detection" content="telephone=no">
+
   <link href="https://yastatic.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Cutive' rel='stylesheet'>
   <link href="{{url_for('static', filename='css/styleGeneral.css')}}" rel='stylesheet'>
@@ -11,7 +15,7 @@
   <link href="{{url_for('static', filename='css/styleYandexMap.css')}}" rel="stylesheet">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://api-maps.yandex.ru/2.1.50/?lang=ru_RU"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
   <script src="{{url_for('static', filename='js/navBar.js')}}"></script>
   <script src="{{url_for('static', filename='js/sidePanel.js')}}"></script>
   <script src="{{url_for('static', filename='js/help_functions.js')}}"></script>
